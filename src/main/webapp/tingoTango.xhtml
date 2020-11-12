@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"      
+                xmlns:f="http://xmlns.jcp.org/jsf/core">    
+
+    <ui:define name="body">
+        <center>
+            <h:form>
+                <p:poll  interval="3" listener="#{appBean.pasarTingo()}" update="panelDatos" />                
+                <p:panel id="panelTingo" header="Bienvenidos a tingo tango - Total Infantes: #{appBean.listaCircularInfantes.contarNodos()}"  >
+                    <p:dataTable  value="#{appBean.listadoInfantes}" var="inf">
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Código"/>
+                            </f:facet>
+                            <p:outputLabel value="#{inf.codigo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Nombre"/>
+                            </f:facet>
+                            <p:outputLabel value="#{inf.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Edad"/>
+                            </f:facet>
+                            <p:outputLabel value="#{inf.edad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Género"/>
+                            </f:facet>
+                            <p:outputLabel rendered="#{inf.genero}"  value="Niño"/>
+                            <p:outputLabel rendered="#{!inf.genero}"  value="Niña"/>                                
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="Ciudad nacimiento"/>
+                            </f:facet>
+                            <p:outputLabel value="#{inf.ciudadNacimiento}"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </p:panel>
+                <h:panelGroup id="panelBotones">
+                    <p:commandButton  value="Inicio" disabled="#{!appBean.verInicio}"
+                                      action="#{appBean.controlarCiclo()}" update="panelBotones,panelTingo" />
+
+                    <p:commandButton value="Parar" disabled="#{appBean.verInicio}"
+                                     action="#{appBean.controlarCiclo()}" update="panelBotones,panelTingo"/>
+                </h:panelGroup>
+
+                <p:panel header="Infante Seleccionado">
+                    <p:panelGrid columns="2" id="panelDatos">
+                        <p:outputLabel value="Código"/>
+                        <p:outputLabel value="#{appBean.infanteSeleccionado.codigo}"/>                        
+                        <p:outputLabel value="Nombre"/>
+                        <p:outputLabel value="#{appBean.infanteSeleccionado.nombre}"/>                        
+                        <p:outputLabel value="Edad"/>
+                        <p:outputLabel value="#{appBean.infanteSeleccionado.edad}"/>                        
+                        <p:outputLabel value="Género"/>
+                        <p:outputLabel value="#{appBean.infanteSeleccionado.genero}"/>                        
+                        <p:outputLabel value="Cidad Nacimiento"/>
+                        <p:outputLabel value="#{appBean.infanteSeleccionado.ciudadNacimiento}"/>
+                    </p:panelGrid>
+
+                </p:panel>
+
+
+
+            </h:form>
+        </center>
+    </ui:define>
+
+</ui:composition>

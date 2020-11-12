@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title><ui:insert name="title">Programación 2</ui:insert></title>
+        <h:outputStylesheet library="css" name="jsfcrud.css"/>
+        <h:outputScript library="js" name="jsfcrud.js"/>
+        <style type="text/css">
+            .ui-diagram-element {   
+                width:8em; 
+                height:3em;     
+                line-height:3em;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                border-radius: 4px;
+                border: 1px solid transparent;
+                background-color: #98AFC7;
+                color: #ffffff;
+            }
+
+            .ui-diagram-success {
+                background-color: #9CB071;
+                color: #ffffff;
+                border-color: #7ab02c;
+            }
+
+            .ui-diagram-fail {
+                background-color: #C34A2C;
+                color: #ffffff;
+            }
+
+            .flow-label {
+                font-size: 24px;
+                font-weight: bold;
+                color: #816A51;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+
+        <p:growl id="growl" life="3000" />
+
+        <p:layout fullPage="true" rendered="#{loginBean.usuarioAutenticado!=null}">
+            <p:layoutUnit position="north" size="65" header="#{bundle.AppName}">
+                <h:form id="menuForm">
+                    <p:menubar>
+                        <p:menuitem value="#{bundle.Home}" outcome="/inicioListas" icon="ui-icon-home"/>
+                        <p:submenu label="#{bundle.Maintenance}">
+                            <p:menuitem value="Infante" outcome="/infante/List.xhtml" />
+                            <p:menuitem value="TipoUsuario" outcome="/tipoUsuario/List.xhtml" />
+                            <p:menuitem value="Usuario" outcome="/usuario/List.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="#{bundlePiloto.Maintenance}">
+                            <p:menuitem value="Piloto" outcome="/piloto/List.xhtml" />
+                        </p:submenu>
+                        <p:submenu label="#{bundle.listas}">
+                            <p:menuitem value="#{bundle.listase}" outcome="/listase/index.xhtml"/>
+                            <p:menuitem value="#{bundle.listade}" outcome="/listade/index.xhtml"/>
+                            <p:menuitem value="#{bundlePiloto.motogp}" outcome="/motogp/login.xhtml"/>
+                            <p:menuitem value="Tingo Tango" outcome="/tingotango/tingotango.xhtml" />
+                            <p:menuitem value="Cliente template" outcome="/tingotango/prueba_cliente_template.xhtml" />
+                            <p:menuitem value="Pirinola" outcome="/pirinola/index.xhtml" />
+                        </p:submenu> 
+                    </p:menubar>
+                </h:form>
+                
+            </p:layoutUnit>
+
+            <p:layoutUnit position="south" size="60">
+                <ui:insert name="footer"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center">
+                <ui:insert name="body"/>
+            </p:layoutUnit>
+
+        </p:layout>
+        <h:form>
+        <h:panelGroup>  
+            <p:outputLabel value="Debe de Iniciar sesión"/>
+            <p:commandButton value="Ir al Inicio de sesión" action="Inicio"/>
+        </h:panelGroup>    
+        </h:form>
+
+    </h:body>
+
+</html>

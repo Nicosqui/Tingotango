@@ -33,5 +33,13 @@
             <from-outcome>crearDE</from-outcome>
             <to-view-id>/ingresar_perro_de.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>crearInfante</from-outcome>
+            <to-view-id>/ingresar_infante.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listadeInfante</from-outcome>
+            <to-view-id>/tingoTango.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

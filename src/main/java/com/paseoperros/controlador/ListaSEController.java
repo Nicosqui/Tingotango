@@ -57,12 +57,12 @@ public class ListaSEController implements Serializable {
         listaPerros = new ListaSE();
         //// Conectaría a un archivo plano o a una base de datos para llenar la 
         //lista de perros
-//        listaPerros.adicionarNodo(new Perro("Pastor", (byte) 1, (byte) 3, "Masculino"));
-//        listaPerros.adicionarNodo(new Perro("Lulú", (byte) 2, (byte) 4, "Femenino"));
-//        listaPerros.adicionarNodo(new Perro("Firulais", (byte) 3, (byte) 6, "Masculino"));
-//
-//        listaPerros.adicionarNodoAlInicio(new Perro("Rocky", (byte) 4, (byte) 5, "Masculino"));
-//        perroMostrar = listaPerros.getCabeza().getDato();
+        listaPerros.adicionarNodo(new Perro("Pastor", (byte) 1, (byte) 3, "Masculino"));
+        listaPerros.adicionarNodo(new Perro("Lulú", (byte) 2, (byte) 4, "Femenino"));
+        listaPerros.adicionarNodo(new Perro("Firulais", (byte) 3, (byte) 6, "Masculino"));
+
+        listaPerros.adicionarNodoAlInicio(new Perro("Rocky", (byte) 4, (byte) 5, "Masculino"));
+        perroMostrar = listaPerros.getCabeza().getDato();
         temp = listaPerros.getCabeza();
 
         inicializarModelo();
