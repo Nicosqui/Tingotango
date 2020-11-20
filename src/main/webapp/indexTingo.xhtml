@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>
+            La Pirinola 
+        </title>
+
+        <style type="text/css">
+            .ui-diagram-element {   
+                width:8em; 
+                height:3em;     
+                line-height:3em;
+                text-align: center;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                border-radius: 4px;
+                border: 1px solid transparent;
+                background-color: #98AFC7;
+                color: #ffffff;
+            }
+
+            .ui-diagram-primero{
+                background-color: #7f00ff;
+            }
+
+            .ui-diagram-rosa{
+                background-color: #cc58d6;
+            }
+
+            .ui-diagram-purpura{
+                background-color: #8d58d6;
+            }
+            
+            .ui-diagram-naranja{
+                background-color:  #FF5733;
+            }
+            
+            .ui-diagram-rojo{
+                background-color: #C70039;
+            }
+            
+            .ui-diagram-azul{
+                background-color:  #58a1d6;
+            }
+            
+            .ui-diagram-verde{
+                background-color: #58d68d;
+            }
+            
+            .ui-diagram-amarillo{
+                background-color: #FFC300;
+            }
+
+            .ui-diagram-success {
+                background-color: #9CB071;
+                color: #ffffff;
+                border-color: #7ab02c;
+            }
+
+            .ui-diagram-fail {
+                background-color: #C34A2C;
+                color: #ffffff;
+            }
+
+            .flow-label {
+                font-size: 24px;
+                font-weight: bold;
+                color: #816A51;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form id="frmTingo">
+           
+            <p:commandButton value="Volver" action="inicio" />
+
+            <p:growl id="msgs" showDetail="true" />
+            <p:poll interval="5" update="frmTingo" />
+            
+            <!-- El panel de administrador se usó para probar el diagrama circular de jugadores -->
+            <p:fieldset rendered="true" 
+                        legend="Panel de Administrador" 
+                        toggleable="true" toggleSpeed="100">
+                 
+                
+                <p:ajax event="toggle" listener="#{tingoTangoController.handleToggle}" update="msgs" /> 
+                
+                
+                
+
+                <h:panelGrid columns="3">
+
+                    <p:panel header="Agregar infante">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel for="txtNombre" value="Nombre"/>
+                            <p:inputText id="txtNombre" 
+                                         value="#{tingoTangoController.nuevoJugador.nombre}"   />
+                            <p:outputLabel value="Género"/>
+                            <p:selectOneMenu value="#{tingoTangoController.nuevoJugador.genero}"
+                                             disabled="#{sesionInfante.deshabilitarFormulario}">
+                                <f:selectItem itemLabel="Niño" itemValue="true"/>
+                                <f:selectItem itemLabel="Niña" itemValue="false"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <p:commandButton value="Agregar" 
+                                         action="#{tingoTangoController.agregarJugador()}" 
+                                         update="diagrama"/>
+                    </p:panel>
+
+                    <p:panel header="Eliminar Jugador">
+                        <p:inputText value="#{tingoTangoController.jugadorAEliminar}" />
+                        <p:commandButton value="Eliminar" 
+                                         action="#{tingoTangoController.eliminarJugador()}" 
+                                         update="diagrama,msgs"/>
+                    </p:panel>
+
+                    <p:panel header="Controles">
+                        <p:commandButton value="Anterior" 
+                                         action="#{tingoTangoController.verAnterior()}" 
+                                         update="diagrama,msgs"/>
+                        <p:commandButton value="Siguiente" 
+                                         action="#{tingoTangoController.verSiguiente()}" 
+                                         update="diagrama,msgs"/>
+                    </p:panel>
+
+
+
+
+                </h:panelGrid>
+            </p:fieldset>
+
+            <p:panelGrid columns="4" >
+                <p:commandButton value="¡Girar!" 
+                                 update="frmTingo" 
+                                 disabled="#{!(ApplicationPirinola.validarTurno(loginBean.usuarioAutenticado.correo) and ApplicationPirinola.inGame)}"
+                                 action="#{ApplicationPirinola.pasarTurno()}" />
+                
+                
+                
+                <p:outputLabel value="Turno actual: #{tingoTangoController.nombreTurno}" 
+                               rendered="#{tingoTangoController.estadoJuego}" />
+                
+                <p:outputLabel value="Última acción: #{tingoTangoController.msgUltimaAccion}" 
+                               rendered="#{tingoTangoController.estadoJuego}" />
+                
+                <p:outputLabel rendered="#{!tingoTangoController.estadoJuego}" 
+                               value="Ha ganago: #{tingoTangoController.listadoInfantes.cabeza.dato.nombre}" />
+                
+                <p:commandButton value="¡Girar(No Auth)!" 
+                                 update="frmTingo" 
+                                 disabled="#{!tingoTangoController.estadoJuego}"
+                                 action="#{tingoTangoController.hacerTango()}" />
+            </p:panelGrid>
+            
+            <p:diagram id="diagrama"
+                       value="#{tingoTangoController.model}" 
+                           style="height:600px; width: 100%;" 
+                           styleClass="ui-widget-content" />
+            
+        </h:form>
+
+
+    </h:body>
+</html>
